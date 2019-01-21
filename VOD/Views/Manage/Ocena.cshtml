@@ -1,0 +1,46 @@
+﻿@model VOD.Models.Filmy
+
+@{
+    ViewData["Title"] = "Ocena";
+}
+<h3>Jesteś pewien, że chcesz ocenić ten film?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TytulOrg)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TytulOrg)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TytulPol)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TytulPol)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPremiery)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataPremiery)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gatunek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gatunek.Gatunek)
+        </dd>
+    </dl>
+    <form asp-action="Ocena">
+        <input type="hidden" asp-for="FilmId" />
+        <div class="btn-group">
+            <input type="submit" value="1" formaction=@Url.Action("Ocena") formmethod="post" asp-for="Ocena"/>
+            <input type="submit" value="2" formaction=@Url.Action("Ocena") formmethod="post" asp-for="Ocena"/>
+            <input type="submit" value="3" formaction=@Url.Action("Ocena") formmethod="post" asp-for="Ocena"/>
+            <input type="submit" value="4" formaction=@Url.Action("Ocena") formmethod="post" asp-for="Ocena"/>
+            <input type="submit" value="5" formaction=@Url.Action("Ocena") formmethod="post" asp-for="Ocena"/>
+        </div>
+        <hr />
+    </form>
+</div>

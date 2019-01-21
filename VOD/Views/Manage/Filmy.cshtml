@@ -1,0 +1,31 @@
+﻿@model IEnumerable<VOD.Models.Filmy>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData.AddActivePage(ManageNavPages.Filmy);
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Filmy
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TytulOrg) @Html.DisplayFor(modelItem => item.TytulPol)
+                </td>
+                <td>
+                    <a asp-controller="Filmy" asp-action="Details" asp-route-id="@item.FilmId">Details</a> |
+                    <a asp-action="Ocena" asp-route-id="@item.FilmId">Oceń film</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

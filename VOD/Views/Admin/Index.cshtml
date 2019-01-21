@@ -1,0 +1,35 @@
+﻿@model IEnumerable<VOD.Models.Uzytkownicy>
+
+@{
+    ViewData["Title"] = "Admin Page";
+}
+<h3>@ViewData["Message"]</h3>
+
+<h1>Dashboard</h1>
+
+<a asp-action="Rejestracja">Zarejestruj pracownika</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Użytkownicy
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Daneosobowe.Imie) @Html.DisplayFor(modelItem => item.Daneosobowe.Nazwisko)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

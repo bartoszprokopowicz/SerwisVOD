@@ -1,0 +1,88 @@
+﻿@using VOD.Models;
+
+@model Filmy
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<head>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/shop-item.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    @Html.DisplayFor(model => model.TytulPol)
+                    <small>@Html.DisplayFor(model => model.TytulOrg)</small>
+                </h1>
+                
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-4">
+                <img class="img-responsive" src="@Model.Plakat" alt="">
+                <h2 class="">Cena: @Model.Cena zł</h2>
+                <a asp-action="Wykup" asp-route-id="@Model.FilmId">Wykup</a>
+                <a asp-controller="Manage" asp-action="Ocena" asp-route-id="@Model.FilmId">Oceń</a>
+            </div>
+            <div class="col-md-4">
+                <h3>Opis filmu</h3>
+                <p>@Model.Opis</p>
+                <h3>Kraje</h3>
+                <ul>
+                    @foreach (var it in Model.KrajeFilmy)
+                    {
+                        <li>@it.Kraj.KrajNazwa</li>
+                    }
+                </ul>
+                <h3>Reżyserzy</h3>
+                <ul>
+                    @foreach (var it in Model.RezyserzyFilmy)
+                    {
+                        <li>@it.Rezyser.Daneosobowe.Imie @it.Rezyser.Daneosobowe.Nazwisko</li>
+                    }
+                </ul>
+
+                <h3>Aktorzy</h3>
+                <ul>
+                    @foreach (var it in Model.AktorzyFilmy)
+                    {
+                        <li>@it.Aktor.Daneosobowe.Imie @it.Aktor.Daneosobowe.Nazwisko</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Related Projects Row -->
+        <!-- /.row -->
+        <hr>
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+<div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.FilmId">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.FilmId">Delete</a>
+    }
+    else if (User.IsInRole("Pracownik"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.FilmId">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.FilmId">Delete</a>
+    }
+    <a asp-action="Index">Powróć</a>
+</div>

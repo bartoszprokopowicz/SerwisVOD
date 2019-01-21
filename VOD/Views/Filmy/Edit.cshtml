@@ -1,0 +1,86 @@
+﻿@using VOD.ViewModels.FilmyViewModels
+
+@model FilmyEdit
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Filmy</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="filmy.FilmId" />
+            <div class="form-group">
+                <label class="control-label">Tytuł Oryginalny</label>
+                <input asp-for="filmy.TytulOrg" class="form-control" />
+                <span asp-validation-for="filmy.TytulOrg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Tytuł Polski</label>
+                <input asp-for="filmy.TytulPol" class="form-control" />
+                <span asp-validation-for="filmy.TytulPol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">URL do plakatu</label>
+                <input asp-for="filmy.Plakat" class="form-control" />
+                <span asp-validation-for="filmy.Plakat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Cena</label>
+                <input asp-for="filmy.Cena" class="form-control" />
+                <span asp-validation-for="filmy.Cena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Data Premiery</label>
+                <input asp-for="filmy.DataPremiery" class="form-control"/>
+                <span asp-validation-for="filmy.DataPremiery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Gatunek</label>
+                <select asp-for="filmy.GatunekId" class="form-control" asp-items="ViewBag.GatunekId"></select>
+                <span asp-validation-for="filmy.GatunekId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Opis</label>
+                <input asp-for="filmy.Opis" class="form-control" />
+                <span asp-validation-for="filmy.Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Reżyserzy</label>
+                @Html.ListBoxFor(model => model.wybranyRezyser, Model.rezyserzy, new { id = "multiSelectDropDown1", multiple = "multiple" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Aktorzy</label>
+                @Html.ListBoxFor(model => model.wybranyAktor, Model.aktorzy, new { id = "multiSelectDropDown2", multiple = "multiple" })
+            </div>
+            <div class="form-group">
+                <label class="control-label">Kraje</label>
+                @Html.ListBoxFor(model => model.wybranyKraj, Model.kraje, new { id = "multiSelectDropDown3", multiple = "multiple" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            $("#multiSelectDropDown1").chosen();
+            $("#multiSelectDropDown2").chosen();
+            $("#multiSelectDropDown3").chosen();
+        });
+    </script>
+}

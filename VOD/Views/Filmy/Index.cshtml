@@ -1,0 +1,77 @@
+﻿@using VOD.ViewModels.FilmyViewModels;
+
+@model FilmyInfo
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/shop-homepage.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Jumbotron Header -->
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Filmy</h1>
+                @if (User.IsInRole("Admin"))
+                {
+                    <h3>
+                        <a asp-action="Create">Dodaj nowy film</a>
+                    </h3>
+                }
+                else if (User.IsInRole("Pracownik"))
+                {
+                    <h3>
+                        <a asp-action="Create">Dodaj nowy film</a>
+                    </h3>
+                }
+                <h4>Filtry</h4>
+                <form asp-controller="Filmy" asp-action="Index" method="get">
+                    <div class="form-inline">
+                        @Html.DropDownList("byGenre", new SelectList(Model.gatunki.Items), "Wszystkie", new { @class = "form-control" })
+                        <input type="submit" value="Filtruj!" />
+                    </div>
+                </form>
+                <hr />
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Page Features -->
+        <div class="row text-center">
+            @foreach (var it in Model.filmy)
+            {
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="@it.Plakat" alt="">
+                        <div class="caption">
+                            <h4>
+                                <a asp-action="Details" asp-route-id="@it.FilmId"> @Html.DisplayFor(Model => it.TytulPol) </a>
+                            </h4>
+                            <p class="list-group-item-text"> Premiera: @it.DataPremiery.ToString("dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture)</p>
+                            <p class="list-group-item-text"> Gatunek: @Html.DisplayFor(Model => it.Gatunek.Gatunek)</p>
+                            <h4>Cena: @it.Cena zł</h4>
+                        </div>
+                        <div class="ratings">
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                @Html.DisplayFor(Model => it.OcenaFilm.Ocena)<small> / </small> 5
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
